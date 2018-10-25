@@ -5,7 +5,7 @@ MCP chip0(0, 8);//CS_Pin=8
 MCP chip1(0, 9);//CS_Pin=9
 
 int waiting = 0; //timer counter
-int receive = 0; //receive data
+unsigned int receive = 0; //receive data
 int ledpin=13; //13 is builtin LED port in nano and UNO
 
 void setup() {
@@ -13,8 +13,8 @@ void setup() {
   
   chip0.begin();//setup chip0
   chip1.begin();//setup chip1
-  chip0.pinMode(0xffff);//set all port output
-  chip1.pinMode(0xffff);
+  chip0.pinMode(0x0000);//set all port output
+  chip1.pinMode(0x0000);
 }
 
 void loop() {
@@ -25,7 +25,9 @@ void loop() {
     }else{
       digitalWrite(ledpin,LOW);
     }
+
     chip0.digitalWrite(receive);
+    
     //Serial.println(receive, BIN); //send converted data
     Serial.write(receive); //send raw data like echo
   }else{
